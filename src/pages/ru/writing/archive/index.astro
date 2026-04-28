@@ -1,12 +1,14 @@
 ---
 import ContentLayout from "../../../../layouts/ContentLayout.astro";
 import ArchivePostCard from "../../../../components/ArchivePostCard.astro";
-import { getLocalizedImportedArchive } from "../../../../lib/linkedinArchive";
+import { getFeaturedImportedArchive, getLocalizedArchiveGroups, getLocalizedImportedArchive } from "../../../../lib/linkedinArchive";
 import { siteCopy } from "../../../../data/site";
 
 const locale = "ru";
 const copy = siteCopy[locale];
 const importedArchive = getLocalizedImportedArchive(locale);
+const featuredArchive = getFeaturedImportedArchive(locale);
+const archiveGroups = getLocalizedArchiveGroups(locale);
 ---
 
 <ContentLayout
@@ -27,7 +29,40 @@ const importedArchive = getLocalizedImportedArchive(locale);
     </div>
   </section>
 
-  <div class="card-grid">
-    {importedArchive.map((post) => <ArchivePostCard post={post} locale={locale} />)}
+  <div class="archive-stack">
+    <section class="section section-tight">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">{copy.writing.archiveFeaturedEyebrow}</p>
+          <h2>{copy.writing.archiveFeaturedTitle}</h2>
+        </div>
+        <p>{copy.writing.archiveFeaturedIntro}</p>
+      </div>
+      <div class="card-grid">
+        {featuredArchive.map((post) => <ArchivePostCard post={post} locale={locale} />)}
+      </div>
+    </section>
+
+    <section class="section section-tight">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">{copy.writing.archiveTopicsEyebrow}</p>
+          <h2>{copy.writing.archiveTopicsTitle}</h2>
+        </div>
+        <p>{copy.writing.archiveTopicsIntro}</p>
+      </div>
+      {archiveGroups.map((group) => (
+        <section class="archive-topic">
+          <div class="section-heading">
+            <div>
+              <h3>{copy.archive.topicLabels[group.topic]}</h3>
+            </div>
+          </div>
+          <div class="card-grid">
+            {group.posts.map((post) => <ArchivePostCard post={post} locale={locale} />)}
+          </div>
+        </section>
+      ))}
+    </section>
   </div>
 </ContentLayout>

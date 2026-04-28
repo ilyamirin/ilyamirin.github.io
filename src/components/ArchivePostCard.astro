@@ -13,14 +13,7 @@ const { post, locale } = Astro.props;
 const copy = siteCopy[locale];
 const href = withLocalePath(locale, `/writing/archive/${post.slug}`);
 const date = new Date(post.date);
-const originalBadge =
-  locale === "ru"
-    ? post.originalLocale === "ru"
-      ? "Оригинал RU"
-      : "Оригинал EN"
-    : post.originalLocale === "ru"
-      ? "Original RU"
-      : "Original EN";
+const originalBadge = post.originalLocale === "ru" ? copy.archive.originalRussianBadge : copy.archive.originalEnglishBadge;
 ---
 
 <article class="post-card archive-card">

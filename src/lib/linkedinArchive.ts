@@ -1,5 +1,5 @@
 import rawArchive from "../data/linkedinArchive.json";
-import { archiveOverrides } from "../data/linkedinArchiveOverrides";
+import { archiveOverrides, type ArchiveTopic } from "../data/linkedinArchiveOverrides";
 import type { Locale } from "./i18n";
 
 export interface ImportedArchivePost {
@@ -25,7 +25,22 @@ export interface LocalizedArchivePost extends ImportedArchivePost {
   displayBody: string;
   hasHandTranslation: boolean;
   usesOriginalText: boolean;
+  topic: ArchiveTopic;
+  featured: boolean;
 }
+
+export interface LocalizedArchiveGroup {
+  topic: ArchiveTopic;
+  posts: LocalizedArchivePost[];
+}
+
+const topicOrder: ArchiveTopic[] = [
+  "ai-systems",
+  "agent-infrastructure",
+  "generative-media",
+  "financial-systems",
+  "field-notes"
+];
 
 function normalizeWhitespace(value: string) {
   return value.replace(/\s+/g, " ").trim();
@@ -67,6 +82,101 @@ function titleNeedsCleanup(post: ImportedArchivePost) {
   );
 }
 
+function containsAny(haystack: string, needles: string[]) {
+  return needles.some((needle) => haystack.includes(needle));
+}
+
+function detectTopic(post: ImportedArchivePost): ArchiveTopic {
+  const override = archiveOverrides[post.slug];
+  if (override?.topic) {
+    return override.topic;
+  }
+
+  const haystack = `${post.slug} ${post.title} ${post.summary} ${post.body}`.toLowerCase();
+
+  if (
+    containsAny(haystack, [
+      "bnpl",
+      "underwriting",
+      "fincept",
+      "financial",
+      "finance",
+      "cashflow",
+      "market data",
+      "paper trading",
+      "decision support",
+      "macro analysis",
+      "credit"
+    ])
+  ) {
+    return "financial-systems";
+  }
+
+  if (
+    containsAny(haystack, [
+      "openclaw",
+      "aquarium",
+      "runtime",
+      "control plane",
+      "gateway",
+      "secrets",
+      "monitoring",
+      "observability",
+      "hosting",
+      "orchestration",
+      "agent platform",
+      "lifecycle",
+      "container"
+    ])
+  ) {
+    return "agent-infrastructure";
+  }
+
+  if (
+    containsAny(haystack, [
+      "cached tokens",
+      "streaming cancellation",
+      "inference",
+      "prompt",
+      "llm",
+      "coding agent",
+      "coding agents",
+      "agentic coding",
+      "benchmark",
+      "aider",
+      "openhands",
+      "tool calls",
+      "model route"
+    ])
+  ) {
+    return "ai-systems";
+  }
+
+  if (
+    containsAny(haystack, [
+      "music",
+      "game",
+      "games",
+      "visual",
+      "eyvind",
+      "arcane",
+      "suno",
+      "painted",
+      "gallery",
+      "image",
+      "deck",
+      "myth",
+      "ritual",
+      "culture",
+      "science fiction"
+    ])
+  ) {
+    return "generative-media";
+  }
+
+  return "field-notes";
+}
+
 const importedArchiveBase = [...(rawArchive as ImportedArchivePost[])].sort((a, b) =>
   b.createdAt.localeCompare(a.createdAt)
 );
@@ -87,12 +197,32 @@ export function localizeImportedArchivePost(post: ImportedArchivePost, locale: L
     displaySummary: localeOverride?.summary ?? originalOverride?.summary ?? autoSummary,
     displayBody: localeOverride?.body ?? post.body,
     hasHandTranslation: Boolean(localeOverride?.body),
-    usesOriginalText: locale !== post.originalLocale && !localeOverride?.body
+    usesOriginalText: locale !== post.originalLocale && !localeOverride?.body,
+    topic: detectTopic(post),
+    featured: Boolean(override?.featured)
   };
 }
 
 export function getLocalizedImportedArchive(locale: Locale) {
   return importedArchiveBase.map((post) => localizeImportedArchivePost(post, locale));
+}
+
+export function getFeaturedImportedArchive(locale: Locale, limit = 8) {
+  return getLocalizedImportedArchive(locale)
+    .filter((post) => post.featured)
+    .slice(0, limit);
+}
+
+export function getLocalizedArchiveGroups(locale: Locale): LocalizedArchiveGroup[] {
+  const localized = getLocalizedImportedArchive(locale);
+  const featuredSlugs = new Set(localized.filter((post) => post.featured).map((post) => post.slug));
+
+  return topicOrder
+    .map((topic) => ({
+      topic,
+      posts: localized.filter((post) => post.topic === topic && !featuredSlugs.has(post.slug))
+    }))
+    .filter((group) => group.posts.length > 0);
 }
 
 export function getImportedArchivePost(slug: string) {

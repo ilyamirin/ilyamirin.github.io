@@ -31,7 +31,7 @@ const translationNote = post.originalLocale === "ru" ? copy.archive.translatedFr
 >
   <div class="detail-meta">
     <span>{new Date(post.date).toLocaleDateString("ru-RU", { dateStyle: "medium" })}</span>
-    <span>{post.usesOriginalText ? (post.originalLocale === "ru" ? "Оригинал RU" : "Оригинал EN") : copy.archive.translatedBadge}</span>
+    <span>{post.usesOriginalText ? (post.originalLocale === "ru" ? copy.archive.originalRussianBadge : copy.archive.originalEnglishBadge) : copy.archive.translatedBadge}</span>
     {post.sourceUrl && <span><a href={post.sourceUrl} target="_blank" rel="noreferrer">{copy.archive.sourceLinkLabel}</a></span>}
   </div>
   {(post.usesOriginalText || post.hasHandTranslation) && (

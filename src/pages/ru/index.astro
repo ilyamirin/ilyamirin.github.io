@@ -84,7 +84,7 @@ const posts = (await getCollection("posts", ({ data }) => data.locale === locale
       <p>{copy.home.writing.body}</p>
     </div>
     <div class="section-actions">
-      <a class="button" href="/ru/writing">Открыть все заметки</a>
+      <a class="button" href="/ru/writing">{copy.home.writingCta}</a>
     </div>
     <div class="card-grid">
       {posts.map((post) => <PostCard post={post} locale={locale} />)}

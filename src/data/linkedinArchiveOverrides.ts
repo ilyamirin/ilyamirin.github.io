@@ -1,17 +1,28 @@
 import type { Locale } from "../lib/i18n";
 
+export type ArchiveTopic =
+  | "ai-systems"
+  | "agent-infrastructure"
+  | "generative-media"
+  | "financial-systems"
+  | "field-notes";
+
 type ArchiveLocaleOverride = {
   title?: string;
   summary?: string;
   body?: string;
 };
 
-type ArchiveOverride = {
+export type ArchiveOverride = {
+  topic?: ArchiveTopic;
+  featured?: boolean;
   locales?: Partial<Record<Locale, ArchiveLocaleOverride>>;
 };
 
 export const archiveOverrides: Record<string, ArchiveOverride> = {
   "2026-04-28-streaming-cancellation-is-one-of-those-llm-features-people-216384": {
+    topic: "ai-systems",
+    featured: true,
     locales: {
       en: {
         title: "Streaming cancellation is an architectural boundary",
@@ -47,6 +58,8 @@ export const archiveOverrides: Record<string, ArchiveOverride> = {
     }
   },
   "2026-04-27-i-ve-been-rethinking-my-github-profile-as-a-public-snapshot-of-what-331713": {
+    topic: "ai-systems",
+    featured: true,
     locales: {
       en: {
         title: "GitHub as a snapshot of what I build now",
@@ -56,7 +69,7 @@ export const archiveOverrides: Record<string, ArchiveOverride> = {
       ru: {
         title: "GitHub как честный снимок того, что я строю сейчас",
         summary:
-          "Небольшой публичный repositioning-pass: меньше археологии, больше честного сигнала про coding agents, LLM-backends и production GenAI.",
+          "Небольшая публичная перенастройка: меньше археологии, больше честного сигнала про кодовых агентов, LLM-бэкенды и рабочие GenAI-системы.",
         body: `Я заново посмотрел на свой GitHub-профиль как на публичный снимок того, чем я реально занимаюсь сейчас, а не того, что было главным несколько лет назад.
 
 Сегодня мой основной фокус — AI-native engineering: coding agents, LLM-бэкенды, OpenAI-compatible infrastructure и production GenAI-системы.
@@ -68,6 +81,8 @@ export const archiveOverrides: Record<string, ArchiveOverride> = {
     }
   },
   "2026-04-26-tiny-teams-157696": {
+    topic: "field-notes",
+    featured: true,
     locales: {
       ru: {
         title: "Почему tiny teams снова кажутся важными",
@@ -99,11 +114,13 @@ That is why the idea feels less like a slogan to me and more like a reinterpreta
     }
   },
   "2026-04-26-finceptterminal-318464": {
+    topic: "financial-systems",
+    featured: true,
     locales: {
       ru: {
-        title: "FinceptTerminal as a local research workstation",
+        title: "FinceptTerminal как локальное исследовательское рабочее место",
         summary:
-          "За описанием open-source финансового терминала скрывается более интересная попытка: собрать единое research-рабочее место для анализа и принятия решений."
+          "За описанием open-source финансового терминала скрывается более интересная попытка: собрать единое рабочее место для анализа и принятия решений."
       },
       en: {
         title: "FinceptTerminal as a local research workstation",
@@ -128,6 +145,8 @@ Still, those are often the most interesting systems to study. Not because they a
     }
   },
   "2026-04-23-i-ve-also-been-thinking-a-lot-about-monitoring-for-agents-and-agent-871552": {
+    topic: "agent-infrastructure",
+    featured: true,
     locales: {
       en: {
         title: "Monitoring agents after the demo glow fades",
@@ -153,6 +172,8 @@ Still, those are often the most interesting systems to study. Not because they a
     }
   },
   "2026-04-21-cached-tokens-are-the-point-where-working-with-llms-stops-feeling-378560": {
+    topic: "ai-systems",
+    featured: true,
     locales: {
       en: {
         title: "Cached tokens as an engineering surface",
@@ -162,7 +183,7 @@ Still, those are often the most interesting systems to study. Not because they a
       ru: {
         title: "Cached tokens как инженерная поверхность",
         summary:
-          "Cached tokens важны не только для стоимости. Они заставляют проектировать prompts как переиспользуемое вычисление.",
+          "Cached tokens важны не только для стоимости. Они заставляют проектировать запросы к модели как переиспользуемое вычисление.",
         body: `Cached tokens — это момент, где работа с LLM перестаёт быть похожей на магию и начинает быть похожей на инженерию.
 
 Их часто воспринимают как billing-фичу. На практике смысл глубже: модели не нужно заново пересчитывать уже обработанную часть prompt. Она может переиспользовать внутреннее состояние, собранное на этапе prefill.
@@ -184,6 +205,8 @@ Cached tokens заставляют относиться к prompt как к ин
     }
   },
   "2026-04-20-i-ve-been-thinking-about-openclaw-style-hosting-as-the-moment-an-973376": {
+    topic: "agent-infrastructure",
+    featured: true,
     locales: {
       en: {
         title: "Agent hosting begins where local demos end",
@@ -193,7 +216,7 @@ Cached tokens заставляют относиться к prompt как к ин
       ru: {
         title: "Хостинг агентов начинается там, где заканчиваются локальные демо",
         summary:
-          "Настоящая бизнес-модель появляется в момент, когда автономного агента можно поднимать, изолировать, тарифицировать, дебажить и поддерживать.",
+          "Настоящая бизнес-модель появляется в момент, когда автономного агента можно поднять, изолировать, тарифицировать, отладить и поддерживать.",
         body: `Я всё больше думаю про OpenClaw-style hosting как про момент, когда автономный агент перестаёт быть симпатичным локальным экспериментом и начинает вести себя как продукт.
 
 На высоком уровне это agent infrastructure as a service: вместо одного агента на одном ноутбуке появляются множество изолированных runtime-окружений, каждое со своей конфигурацией, секретами, доступом к моделям, health-checks, логами и операторскими controls. То есть меньше “у меня локально работало” и больше “это переживает встречу с реальными пользователями”.
@@ -209,11 +232,13 @@ Cached tokens заставляют относиться к prompt как к ин
     }
   },
   "2026-04-02-linkedin-post-870400": {
+    topic: "generative-media",
+    featured: true,
     locales: {
       ru: {
         title: "Сайт-колода о том, как читать состояние времени",
         summary:
-          "Mobile-first колода образов и карт, задуманная не как галерея, а как способ чуть замедлить взгляд и прочитать культурное состояние эпохи."
+          "Колода образов и карт для мобильного экрана, задуманная не как галерея, а как способ чуть замедлить взгляд и прочитать культурное состояние эпохи."
       },
       en: {
         title: "A card deck for reading the state of time",
@@ -232,6 +257,7 @@ Sometimes it matters not only to produce and explain, but also to interpret: ove
     }
   },
   "2026-03-28-linkedin-post-729408": {
+    topic: "generative-media",
     locales: {
       ru: {
         title: "Когда выбор действительно начинает расползаться",

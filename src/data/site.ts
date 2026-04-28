@@ -6,10 +6,19 @@ type SectionIntro = {
   title: string;
   body: string;
 };
+type ArchiveTopicKey =
+  | "ai-systems"
+  | "agent-infrastructure"
+  | "generative-media"
+  | "financial-systems"
+  | "field-notes";
 
 type SiteCopy = {
   siteTitle: string;
   siteDescription: string;
+  metadata: {
+    titleSuffix: string;
+  };
   nav: NavLink[];
   hero: {
     overline: string;
@@ -27,6 +36,7 @@ type SiteCopy = {
     nowTitle: string;
     resumeCta: string;
     nowCta: string;
+    writingCta: string;
   };
   whatIBuild: Array<{ title: string; body: string }>;
   sectionLabels: {
@@ -50,17 +60,25 @@ type SiteCopy = {
     archiveDeckTitle: string;
     archiveDeckIntro: string;
     archiveSinceLabel: string;
+    archiveFeaturedEyebrow: string;
+    archiveFeaturedTitle: string;
+    archiveFeaturedIntro: string;
+    archiveTopicsEyebrow: string;
+    archiveTopicsTitle: string;
+    archiveTopicsIntro: string;
   };
   archive: {
     eyebrow: string;
     sourceLinkLabel: string;
     translatedBadge: string;
-    originalBadge: string;
+    originalEnglishBadge: string;
+    originalRussianBadge: string;
     imageBadge: string;
     fallbackFromEn: string;
     fallbackFromRu: string;
     translatedFromEn: string;
     translatedFromRu: string;
+    topicLabels: Record<ArchiveTopicKey, string>;
   };
   footer: {
     tagline: string;
@@ -99,6 +117,9 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     siteTitle: "Ilya Mirin",
     siteDescription:
       "Bilingual static site about AI systems, coding agents, operator tools, and generative products, framed as a space-station garden.",
+    metadata: {
+      titleSuffix: "Ilya Mirin"
+    },
     nav: [
       { href: "/projects", label: "Projects" },
       { href: "/writing", label: "Notes" },
@@ -133,7 +154,8 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       resumeTitle: "Resume Snapshot",
       nowTitle: "Current Orbit",
       resumeCta: "Read the full resume",
-      nowCta: "See what I am exploring"
+      nowCta: "See what I am exploring",
+      writingCta: "Open selected notes"
     },
     whatIBuild: [
       {
@@ -161,31 +183,47 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       title: "Notes",
       description:
         "Selected essays and a deeper archive about AI systems, operator tooling, generative products, and technical judgment.",
-      archiveEyebrow: "Signal archive",
+      archiveEyebrow: "Public logbook",
       archiveTitle: "Field Notes Archive",
       archiveIntro:
-        "The curated pieces stay up front. The larger archive remains available as a deeper proof layer, because the public signal matters too.",
-      archiveCta: "Open the full archive",
+        "Start with the selected notes. The archive stays open as the longer public logbook: launch notes, working theories, and useful rough edges included.",
+      archiveCta: "Open the field archive",
       archiveCountLabel: "posts",
       curatedEyebrow: "Selected notes",
-      archiveDeckEyebrow: "Archive deck",
+      archiveDeckEyebrow: "Public logbook",
       archiveDeckTitle: "Field Notes Archive",
       archiveDeckIntro:
-        "Imported posts from August 2025 onward. Some entries already have hand-shaped translations; the rest stay readable in their original language until the second pass lands.",
-      archiveSinceLabel: "From August 2025"
+        "Imported posts from August 2025 onward. The strongest entries already have hand-shaped translations; the rest remain available in their original language until the next editorial pass.",
+      archiveSinceLabel: "From August 2025",
+      archiveFeaturedEyebrow: "Starting points",
+      archiveFeaturedTitle: "Start here",
+      archiveFeaturedIntro:
+        "The strongest translated or strategically important entries, useful if you want the shorter route before wandering through the full station.",
+      archiveTopicsEyebrow: "Browse by topic",
+      archiveTopicsTitle: "The wider logbook",
+      archiveTopicsIntro:
+        "Everything else, grouped by the kinds of systems and questions these notes are actually about."
     },
     archive: {
-      eyebrow: "Signal archive",
-      sourceLinkLabel: "Open on LinkedIn",
-      translatedBadge: "Translated for this site",
-      originalBadge: "Original text",
-      imageBadge: "With artwork",
+      eyebrow: "Field archive",
+      sourceLinkLabel: "View the original on LinkedIn",
+      translatedBadge: "Adapted for this site",
+      originalEnglishBadge: "Original English post",
+      originalRussianBadge: "Original Russian post",
+      imageBadge: "Includes artwork",
       fallbackFromEn:
-        "Original post language: English. This page keeps the source text for now; a dedicated Russian adaptation is still pending.",
+        "This is the original English post. I am keeping it in the archive as part of the public logbook until a Russian adaptation is ready.",
       fallbackFromRu:
-        "Original post language: Russian. This page keeps the source text for now; a dedicated English adaptation is still pending.",
-      translatedFromEn: "Adapted from the original English post.",
-      translatedFromRu: "Adapted from the original Russian post."
+        "This is the original Russian post. I am keeping it in the archive as part of the public logbook until an English adaptation is ready.",
+      translatedFromEn: "Translated and lightly adapted from the English original for this site.",
+      translatedFromRu: "Translated and lightly adapted from the Russian original for this site.",
+      topicLabels: {
+        "ai-systems": "AI Systems",
+        "agent-infrastructure": "Agent Infrastructure",
+        "generative-media": "Generative Media & Creative Systems",
+        "financial-systems": "Financial & Decision Systems",
+        "field-notes": "Field Notes & Other"
+      }
     },
     footer: {
       tagline: "A space-station garden for AI systems, field notes, and interfaces that prefer instrumentation over mysticism. Less Death Star, more greenhouse control room.",
@@ -203,7 +241,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   ru: {
     siteTitle: "Илья Мирин",
     siteDescription:
-      "Двуязычный статический сайт про AI-системы, coding agents, operator tools и генеративные продукты в эстетике космической станции-сада.",
+      "Двуязычный статический сайт Ильи Мирина про AI-системы, агентную инфраструктуру, генеративные продукты и операторские инструменты в эстетике космической станции-сада.",
+    metadata: {
+      titleSuffix: "Илья Мирин"
+    },
     nav: [
       { href: "/ru/projects", label: "Проекты" },
       { href: "/ru/writing", label: "Заметки" },
@@ -211,13 +252,13 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       { href: "/ru/about", label: "Обо мне" }
     ],
     hero: {
-      overline: "AI systems / operator tools / generative media",
+      overline: "AI-системы / операторские инструменты / генеративные медиа",
       title: "Я строю AI-системы, генеративные продукты и операторские инструменты, которые делают сложные модели пригодными для работы.",
       summary:
-        "От coding agents и OpenAI-compatible backends до evaluation harnesses, runtime control planes и media pipelines — мне нравятся системы с хорошей телеметрией, человеческим интерфейсом и характером, который не выглядит серийным.",
+        "От кодовых агентов и OpenAI-compatible бэкендов до систем оценки, контуров управления рантаймами и медийных пайплайнов — мне нравятся системы с ясной телеметрией, человеческим интерфейсом и характером, который не выглядит конвейерным.",
       primaryCta: { href: "/ru/projects", label: "Смотреть проекты" },
       secondaryCta: { href: "/ru/resume", label: "Читать резюме" },
-      signalStrip: ["Coding agents", "LLM-инфраструктура", "Генеративные потоки", "Операторские поверхности"]
+      signalStrip: ["Кодовые агенты", "LLM-инфраструктура", "Генеративные пайплайны", "Операторские интерфейсы"]
     },
     home: {
       selectedWorlds: {
@@ -238,19 +279,20 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       resumeTitle: "Коротко о карьере",
       nowTitle: "Текущая орбита",
       resumeCta: "Читать полное резюме",
-      nowCta: "Посмотреть текущий фокус"
+      nowCta: "Посмотреть текущий фокус",
+      writingCta: "Открыть избранные заметки"
     },
     whatIBuild: [
       {
         title: "Агентная инфраструктура",
-        body: "Control planes, gateways, evaluation loops и runtime boundaries, которые позволяют агентным системам вести себя как продукт, а не как сценический реквизит."
+        body: "Контуры управления, шлюзы, циклы оценки и границы рантайма, которые превращают агентные системы в продукт, а не в сценический реквизит."
       },
       {
         title: "Генеративные продукты",
-        body: "Медиа- и интерфейсные системы, где генерация встроена в устойчивый рабочий цикл, а не служит одноразовым фокусом."
+        body: "Медиа- и интерфейсные системы, где генерация встроена в устойчивый рабочий процесс, а не служит одноразовым фокусом."
       },
       {
-        title: "Операторские поверхности",
+        title: "Операторские интерфейсы",
         body: "Инструменты для людей в контуре: тех, кому нужно проверять, перенаправлять, подтверждать и иногда вовремя останавливать дроидов."
       }
     ],
@@ -265,32 +307,48 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     writing: {
       title: "Заметки",
       description:
-        "Избранные тексты и более глубокий архив о AI-системах, операторских интерфейсах, генеративных продуктах и техническом суждении.",
-      archiveEyebrow: "Сигнальный архив",
+        "Избранные тексты и более глубокий архив об AI-системах, операторских интерфейсах, генеративных продуктах и техническом суждении.",
+      archiveEyebrow: "Публичный журнал",
       archiveTitle: "Архив полевых заметок",
       archiveIntro:
-        "Отобранные тексты остаются на первом плане. Большой архив тоже открыт, потому что публичный сигнал не стоит выбрасывать за борт.",
-      archiveCta: "Открыть полный архив",
+        "Сначала — отобранные тексты. Ниже — более длинный публичный журнал: запусковые заметки, рабочие гипотезы и те самые полезные шероховатости.",
+      archiveCta: "Открыть архив заметок",
       archiveCountLabel: "постов",
       curatedEyebrow: "Избранные заметки",
-      archiveDeckEyebrow: "Архивный отсек",
+      archiveDeckEyebrow: "Публичный журнал",
       archiveDeckTitle: "Архив полевых заметок",
       archiveDeckIntro:
-        "Импортированные посты с августа 2025 года. Часть уже переведена и вычитана для сайта; остальные пока честно остаются на языке оригинала до второго прохода.",
-      archiveSinceLabel: "С августа 2025"
+        "Посты, импортированные из LinkedIn начиная с августа 2025 года. Самые сильные записи уже вручную переведены и адаптированы для сайта; остальные пока честно сохранены на языке оригинала.",
+      archiveSinceLabel: "С августа 2025",
+      archiveFeaturedEyebrow: "С чего начать",
+      archiveFeaturedTitle: "Хорошие точки входа",
+      archiveFeaturedIntro:
+        "Самые сильные переведённые или стратегически важные записи. Удобный короткий маршрут перед тем, как идти в полный журнал станции.",
+      archiveTopicsEyebrow: "Навигация по темам",
+      archiveTopicsTitle: "Шире по журналу",
+      archiveTopicsIntro:
+        "Остальные записи, собранные по типам систем и вопросов, о которых они на самом деле говорят."
     },
     archive: {
-      eyebrow: "Сигнальный архив",
-      sourceLinkLabel: "Открыть в LinkedIn",
-      translatedBadge: "Переведено для сайта",
-      originalBadge: "Оригинальный текст",
-      imageBadge: "С иллюстрацией",
+      eyebrow: "Архив заметок",
+      sourceLinkLabel: "Посмотреть оригинал в LinkedIn",
+      translatedBadge: "Адаптировано для сайта",
+      originalEnglishBadge: "Английский оригинал",
+      originalRussianBadge: "Русский оригинал",
+      imageBadge: "Есть иллюстрация",
       fallbackFromEn:
-        "Язык оригинального поста — английский. Пока страница сохраняет исходный текст; отдельная русская адаптация ещё в работе.",
+        "Перед вами английский оригинал. Я оставил его в архиве как часть публичного журнала, пока отдельная русская адаптация не готова.",
       fallbackFromRu:
-        "Язык оригинального поста — русский. Пока страница сохраняет исходный текст; отдельная английская адаптация ещё в работе.",
-      translatedFromEn: "Адаптировано с английского оригинала.",
-      translatedFromRu: "Адаптировано с русского оригинала."
+        "Перед вами русский оригинал. Я оставил его в архиве как часть публичного журнала, пока отдельная английская адаптация не готова.",
+      translatedFromEn: "Текст переведён и слегка адаптирован для сайта с английского оригинала.",
+      translatedFromRu: "Текст переведён и слегка адаптирован для сайта с русского оригинала.",
+      topicLabels: {
+        "ai-systems": "AI-системы",
+        "agent-infrastructure": "Агентная инфраструктура",
+        "generative-media": "Генеративные медиа и творческие системы",
+        "financial-systems": "Финансовые и decision-support системы",
+        "field-notes": "Полевые заметки и остальное"
+      }
     },
     footer: {
       tagline: "Космическая станция-сад для AI-систем, полевых заметок и интерфейсов, где телеметрия важнее мистики. Меньше Звезды Смерти, больше теплицы с контрольной панелью.",

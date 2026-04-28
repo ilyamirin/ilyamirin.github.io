@@ -1,5 +1,5 @@
 ---
-import { brandConfig } from "../data/site";
+import { brandConfig, siteCopy } from "../data/site";
 
 type Props = {
   title: string;
@@ -14,21 +14,25 @@ const { title, description, locale, canonicalPath, alternatePath, imagePath = br
 const canonical = new URL(canonicalPath, Astro.site);
 const alternate = alternatePath ? new URL(alternatePath, Astro.site) : null;
 const image = new URL(imagePath, Astro.site);
+const titleSuffix = siteCopy[locale].metadata.titleSuffix;
+const brandAwareTitle = title.includes("|") ? title : `${title} | ${titleSuffix}`;
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
-<title>{title}</title>
+<title>{brandAwareTitle}</title>
 <meta name="description" content={description} />
 <meta name="theme-color" content="#0d1b2f" />
-<meta property="og:title" content={title} />
+<meta property="og:title" content={brandAwareTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonical.toString()} />
 <meta property="og:locale" content={locale === "en" ? "en_US" : "ru_RU"} />
 <meta property="og:image" content={image.toString()} />
-<meta property="og:image:alt" content={title} />
+<meta property="og:image:alt" content={brandAwareTitle} />
+<meta name="twitter:title" content={brandAwareTitle} />
+<meta name="twitter:description" content={description} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content={image.toString()} />
 <link rel="canonical" href={canonical.toString()} />
