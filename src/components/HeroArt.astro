@@ -1,38 +1,43 @@
-<div class="hero-art" aria-hidden="true">
-  <div class="sky"></div>
-  <div class="constellation constellation-a"></div>
-  <div class="constellation constellation-b"></div>
-  <div class="orbital orbital-a"></div>
-  <div class="orbital orbital-b"></div>
-  <div class="mountains mountains-back"></div>
-  <div class="mountains mountains-front"></div>
-  <div class="forest"></div>
-  <div class="dome">
-    <div class="dome-grid"></div>
-    <div class="dome-forest"></div>
-  </div>
-  <div class="tower tower-main"></div>
-  <div class="tower tower-side"></div>
-  <div class="terrain terrain-a"></div>
-  <div class="terrain terrain-b"></div>
-</div>
-
-<script>
-  const root = document.documentElement;
-  const hero = document.querySelector(".hero-art");
-
-  if (hero && window.matchMedia("(pointer:fine)").matches) {
-    hero.addEventListener("pointermove", (event) => {
-      const pointerEvent = event as PointerEvent;
-      const rect = hero.getBoundingClientRect();
-      const x = (pointerEvent.clientX - rect.left) / rect.width - 0.5;
-      const y = (pointerEvent.clientY - rect.top) / rect.height - 0.5;
-      root.style.setProperty("--hero-shift-x", `${x * 20}px`);
-      root.style.setProperty("--hero-shift-y", `${y * 12}px`);
-    });
-    hero.addEventListener("pointerleave", () => {
-      root.style.setProperty("--hero-shift-x", "0px");
-      root.style.setProperty("--hero-shift-y", "0px");
-    });
-  }
-</script>
+<figure class="hero-art" aria-hidden="true">
+  <img
+    src="/media/brand/hero-space-garden.png"
+    alt=""
+    width="2048"
+    height="1152"
+    class="hero-art-image"
+    loading="eager"
+    decoding="async"
+    fetchpriority="high"
+  />
+  <div class="hero-art-vignette"></div>
+  <div class="hero-art-glow"></div>
+  <svg class="hero-art-overlay" viewBox="0 0 1200 760" fill="none" preserveAspectRatio="none">
+    <path
+      d="M742 130C845 128 925 160 988 223C1057 292 1092 380 1094 488"
+      class="hero-line hero-line--soft"
+    />
+    <path
+      d="M720 104C863 102 971 154 1051 260C1106 331 1134 415 1135 512"
+      class="hero-line"
+    />
+    <path
+      d="M752 168C850 164 927 197 982 260C1039 325 1066 395 1066 470"
+      class="hero-line hero-line--pine"
+    />
+    <path
+      d="M106 560C206 596 320 620 446 624"
+      class="hero-line hero-line--soft"
+    />
+    <path
+      d="M106 598C226 634 370 649 534 642"
+      class="hero-line hero-line--pine"
+    />
+    <circle cx="996" cy="176" r="4.5" class="hero-star" />
+    <circle cx="925" cy="112" r="2.5" class="hero-star hero-star--small" />
+    <circle cx="1094" cy="245" r="3" class="hero-star hero-star--small" />
+    <path
+      d="M250 690C305 648 348 614 393 568C442 519 477 461 505 379"
+      class="hero-line hero-line--accent"
+    />
+  </svg>
+</figure>

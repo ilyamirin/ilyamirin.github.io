@@ -6,7 +6,7 @@ import "@fontsource/space-grotesk/700.css";
 
 import BaseHead from "../components/BaseHead.astro";
 import LocaleSwitch from "../components/LocaleSwitch.astro";
-import { siteCopy } from "../data/site";
+import { brandConfig, siteCopy } from "../data/site";
 import type { Locale } from "../lib/i18n";
 import "../styles/global.css";
 
@@ -38,8 +38,8 @@ const copy = siteCopy[locale];
     <div class="site-shell">
       <header class="site-header">
         <a href={locale === "en" ? "/" : "/ru"} class="brand">
-          <span class="brand-mark"></span>
-          <span>{copy.siteTitle}</span>
+          <img src={brandConfig.logoMarkPath} alt="" width="34" height="34" class="brand-mark" />
+          <span class="brand-name">{copy.siteTitle}</span>
         </a>
         <nav class="site-nav">
           {copy.nav.map((item) => (
@@ -52,7 +52,27 @@ const copy = siteCopy[locale];
         <slot />
       </main>
       <footer class="site-footer">
-        <p>{copy.footerBlurb}</p>
+        <div class="footer-brand">
+          <a href={locale === "en" ? "/" : "/ru"} class="brand">
+            <img src={brandConfig.logoMarkPath} alt="" width="34" height="34" class="brand-mark" />
+            <span class="brand-name">{copy.siteTitle}</span>
+          </a>
+          <p>{copy.footer.tagline}</p>
+        </div>
+        <div class="footer-meta">
+          <div class="footer-links">
+            {copy.footer.links.map((item) => (
+              <a href={item.href} target={item.href.startsWith("http") || item.href.startsWith("mailto:") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer" : undefined}>
+                {item.label}
+              </a>
+            ))}
+          </div>
+          <div class="footer-legal">
+            <p>{copy.footer.copyright}</p>
+            <p>{copy.footer.codeLicense}</p>
+            <p>{copy.footer.contentRights}</p>
+          </div>
+        </div>
       </footer>
     </div>
   </body>

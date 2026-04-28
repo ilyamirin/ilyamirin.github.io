@@ -1,15 +1,19 @@
 ---
+import { brandConfig } from "../data/site";
+
 type Props = {
   title: string;
   description: string;
   locale: "en" | "ru";
   canonicalPath: string;
   alternatePath?: string;
+  imagePath?: string;
 };
 
-const { title, description, locale, canonicalPath, alternatePath } = Astro.props;
+const { title, description, locale, canonicalPath, alternatePath, imagePath = brandConfig.ogImagePath } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site);
 const alternate = alternatePath ? new URL(alternatePath, Astro.site) : null;
+const image = new URL(imagePath, Astro.site);
 ---
 
 <meta charset="utf-8" />
@@ -23,7 +27,10 @@ const alternate = alternatePath ? new URL(alternatePath, Astro.site) : null;
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonical.toString()} />
 <meta property="og:locale" content={locale === "en" ? "en_US" : "ru_RU"} />
+<meta property="og:image" content={image.toString()} />
+<meta property="og:image:alt" content={title} />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={image.toString()} />
 <link rel="canonical" href={canonical.toString()} />
 <link rel="alternate" hreflang={locale} href={canonical.toString()} />
 {alternate && <link rel="alternate" hreflang={locale === "en" ? "ru" : "en"} href={alternate.toString()} />}

@@ -19,24 +19,26 @@ const posts = (await getCollection("posts", ({ data }) => data.locale === locale
 ---
 
 <MainLayout
-  title="Илья Мирин | AI systems, generative products и unusual interfaces"
+  title="Илья Мирин | AI-системы, операторские инструменты и генеративные продукты"
   description={copy.siteDescription}
   locale={locale}
   currentPath="/ru"
   switchPath="/"
   alternatePath="/"
 >
-  <section class="hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow">{copy.hero.overline}</p>
-      <h1>{copy.hero.title}</h1>
-      <p class="lede">{copy.hero.summary}</p>
-      <div class="cta-row">
-        <a class="button primary" href={copy.hero.primaryCta.href}>{copy.hero.primaryCta.label}</a>
-        <a class="button" href={copy.hero.secondaryCta.href}>{copy.hero.secondaryCta.label}</a>
-      </div>
-      <div class="signal-strip">
-        {copy.hero.signalStrip.map((item) => <span>{item}</span>)}
+  <section class="hero-world">
+    <div class="hero-copy hero-copy-panel">
+      <div class="hero-copy-inner">
+        <p class="eyebrow">{copy.hero.overline}</p>
+        <h1>{copy.hero.title}</h1>
+        <p class="lede">{copy.hero.summary}</p>
+        <div class="cta-row">
+          <a class="button primary" href={copy.hero.primaryCta.href}>{copy.hero.primaryCta.label}</a>
+          <a class="button" href={copy.hero.secondaryCta.href}>{copy.hero.secondaryCta.label}</a>
+        </div>
+        <div class="signal-strip">
+          {copy.hero.signalStrip.map((item) => <span>{item}</span>)}
+        </div>
       </div>
     </div>
     <HeroArt />
@@ -45,10 +47,10 @@ const posts = (await getCollection("posts", ({ data }) => data.locale === locale
   <section class="section">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Главные доказательства</p>
-        <h2>{copy.sectionLabels.selectedWorlds}</h2>
+        <p class="eyebrow">{copy.home.selectedWorlds.eyebrow}</p>
+        <h2>{copy.home.selectedWorlds.title}</h2>
       </div>
-      <p>Избранные системы, которые показывают не только что я сделал, но и как я думаю.</p>
+      <p>{copy.home.selectedWorlds.body}</p>
     </div>
     <div class="card-grid">
       {projects.map((project) => <ProjectCard project={project} locale={locale} />)}
@@ -58,9 +60,10 @@ const posts = (await getCollection("posts", ({ data }) => data.locale === locale
   <section class="section">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Мост между визуалом и карьерой</p>
-        <h2>{copy.sectionLabels.whatIBuild}</h2>
+        <p class="eyebrow">{copy.home.whatIBuild.eyebrow}</p>
+        <h2>{copy.home.whatIBuild.title}</h2>
       </div>
+      <p>{copy.home.whatIBuild.body}</p>
     </div>
     <div class="grid-three">
       {copy.whatIBuild.map((item) => (
@@ -75,10 +78,13 @@ const posts = (await getCollection("posts", ({ data }) => data.locale === locale
   <section class="section">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Архив и мышление</p>
-        <h2>{copy.sectionLabels.writing}</h2>
+        <p class="eyebrow">{copy.home.writing.eyebrow}</p>
+        <h2>{copy.home.writing.title}</h2>
       </div>
-      <a class="button" href="/ru/writing">Все тексты</a>
+      <p>{copy.home.writing.body}</p>
+    </div>
+    <div class="section-actions">
+      <a class="button" href="/ru/writing">Открыть все заметки</a>
     </div>
     <div class="card-grid">
       {posts.map((post) => <PostCard post={post} locale={locale} />)}
@@ -87,16 +93,16 @@ const posts = (await getCollection("posts", ({ data }) => data.locale === locale
 
   <section class="section grid-two">
     <article class="panel-block">
-      <p class="eyebrow">{copy.sectionLabels.resume}</p>
+      <p class="eyebrow">{copy.home.resumeTitle}</p>
       <h2>{resumeFrontmatter.title}</h2>
       <p>{resumeFrontmatter.summary}</p>
-      <a class="button primary" href="/ru/resume">Полное резюме</a>
+      <a class="button primary" href="/ru/resume">{copy.home.resumeCta}</a>
     </article>
     <article class="panel-block">
-      <p class="eyebrow">{copy.sectionLabels.now}</p>
+      <p class="eyebrow">{copy.home.nowTitle}</p>
       <h2>{nowFrontmatter.title}</h2>
       <p>{nowFrontmatter.summary}</p>
-      <a class="button" href="/ru/now">Текущий фокус</a>
+      <a class="button" href="/ru/now">{copy.home.nowCta}</a>
     </article>
   </section>
 </MainLayout>

@@ -9,6 +9,8 @@ type Props = {
 
 const { project, locale } = Astro.props;
 const href = withLocalePath(locale, `/projects/${project.data.pathSlug}`);
+const proofLabel = locale === "ru" ? "Что доказывает" : "What It Proves";
+const stackLabel = locale === "ru" ? "Стек" : "Stack";
 ---
 
 <article class="project-card">
@@ -17,11 +19,11 @@ const href = withLocalePath(locale, `/projects/${project.data.pathSlug}`);
   <p>{project.data.summary}</p>
   <dl>
     <div>
-      <dt>Proof</dt>
+      <dt>{proofLabel}</dt>
       <dd>{project.data.proof}</dd>
     </div>
     <div>
-      <dt>Stack</dt>
+      <dt>{stackLabel}</dt>
       <dd>{project.data.stack.join(" / ")}</dd>
     </div>
   </dl>

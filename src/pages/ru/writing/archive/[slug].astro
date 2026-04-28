@@ -1,6 +1,10 @@
 ---
 import ContentLayout from "../../../../layouts/ContentLayout.astro";
-import { importedArchive } from "../../../../lib/linkedinArchive";
+import { importedArchive, localizeImportedArchivePost } from "../../../../lib/linkedinArchive";
+import { siteCopy } from "../../../../data/site";
+
+const locale = "ru";
+const copy = siteCopy[locale];
 
 export function getStaticPaths() {
   return importedArchive.map((post) => ({
@@ -9,30 +13,31 @@ export function getStaticPaths() {
   }));
 }
 
-const { post } = Astro.props;
-const paragraphs = post.body.split(/\n\s*\n/).map((chunk: string) => chunk.trim()).filter(Boolean);
-const originalNote =
-  post.originalLocale === "ru"
-    ? "Оригинальный язык поста: русский. Отдельная английская версия ещё не подготовлена, поэтому в архиве пока сохранён оригинальный текст."
-    : "Оригинальный язык поста: английский. Отдельная русская версия ещё не подготовлена, поэтому в архиве пока сохранён оригинальный текст.";
+const { post: rawPost } = Astro.props;
+const post = localizeImportedArchivePost(rawPost, locale);
+const paragraphs = post.displayBody.split(/\n\s*\n/).map((chunk: string) => chunk.trim()).filter(Boolean);
+const originalNote = post.originalLocale === "ru" ? copy.archive.fallbackFromRu : copy.archive.fallbackFromEn;
+const translationNote = post.originalLocale === "ru" ? copy.archive.translatedFromRu : copy.archive.translatedFromEn;
 ---
 
 <ContentLayout
-  title={post.title}
-  description={post.summary}
-  locale="ru"
+  title={post.displayTitle}
+  description={post.displaySummary}
+  locale={locale}
   currentPath={`/ru/writing/archive/${post.slug}`}
   switchPath={`/writing/archive/${post.slug}`}
   alternatePath={`/writing/archive/${post.slug}`}
-  eyebrow="Импортированный LinkedIn-архив"
+  eyebrow={copy.archive.eyebrow}
 >
   <div class="detail-meta">
     <span>{new Date(post.date).toLocaleDateString("ru-RU", { dateStyle: "medium" })}</span>
-    <span>{post.originalLocale === "ru" ? "Оригинал RU" : "Оригинал EN"}</span>
-    {post.sourceUrl && <span><a href={post.sourceUrl} target="_blank" rel="noreferrer">Открыть в LinkedIn</a></span>}
+    <span>{post.usesOriginalText ? (post.originalLocale === "ru" ? "Оригинал RU" : "Оригинал EN") : copy.archive.translatedBadge}</span>
+    {post.sourceUrl && <span><a href={post.sourceUrl} target="_blank" rel="noreferrer">{copy.archive.sourceLinkLabel}</a></span>}
   </div>
-  {post.originalLocale !== "ru" && <div class="archive-note">{originalNote}</div>}
-  {post.coverImage && <p><img src={post.coverImage} alt={post.title} /></p>}
+  {(post.usesOriginalText || post.hasHandTranslation) && (
+    <div class="archive-note">{post.usesOriginalText ? originalNote : translationNote}</div>
+  )}
+  {post.coverImage && <p><img src={post.coverImage} alt={post.displayTitle} /></p>}
   <div class="archive-prose">
     {paragraphs.map((paragraph: string) => <p>{paragraph}</p>)}
   </div>

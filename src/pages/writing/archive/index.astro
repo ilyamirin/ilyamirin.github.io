@@ -1,27 +1,28 @@
 ---
 import ContentLayout from "../../../layouts/ContentLayout.astro";
 import ArchivePostCard from "../../../components/ArchivePostCard.astro";
-import { importedArchive } from "../../../lib/linkedinArchive";
+import { getLocalizedImportedArchive } from "../../../lib/linkedinArchive";
+import { siteCopy } from "../../../data/site";
 
 const locale = "en";
+const copy = siteCopy[locale];
+const importedArchive = getLocalizedImportedArchive(locale);
 ---
 
 <ContentLayout
-  title="Imported LinkedIn Archive"
-  description="Full imported LinkedIn writing archive from August 2025 onward."
+  title={copy.writing.archiveDeckTitle}
+  description={copy.writing.archiveDeckIntro}
   locale={locale}
   currentPath="/writing/archive"
   alternatePath="/ru/writing/archive"
 >
   <section class="panel-block archive-intro">
-    <p class="eyebrow">Imported Archive</p>
-    <h2>Full LinkedIn writing archive</h2>
-    <p class="lede">
-      This section carries the broader LinkedIn archive separately from the curated essays above. Where a second-language rewrite is not ready yet, the page still preserves the original post text.
-    </p>
+    <p class="eyebrow">{copy.writing.archiveDeckEyebrow}</p>
+    <h2>{copy.writing.archiveDeckTitle}</h2>
+    <p class="lede">{copy.writing.archiveDeckIntro}</p>
     <div class="tag-row">
-      <span>{importedArchive.length} imported posts</span>
-      <span>From August 2025</span>
+      <span>{importedArchive.length} {copy.writing.archiveCountLabel}</span>
+      <span>{copy.writing.archiveSinceLabel}</span>
     </div>
   </section>
 
