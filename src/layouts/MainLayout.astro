@@ -1,0 +1,59 @@
+---
+import "@fontsource/manrope/400.css";
+import "@fontsource/manrope/700.css";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/700.css";
+
+import BaseHead from "../components/BaseHead.astro";
+import LocaleSwitch from "../components/LocaleSwitch.astro";
+import { siteCopy } from "../data/site";
+import type { Locale } from "../lib/i18n";
+import "../styles/global.css";
+
+type Props = {
+  title: string;
+  description: string;
+  locale: Locale;
+  currentPath: string;
+  switchPath?: string;
+  alternatePath?: string;
+};
+
+const { title, description, locale, currentPath, switchPath = currentPath, alternatePath } = Astro.props;
+const copy = siteCopy[locale];
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      locale={locale}
+      canonicalPath={currentPath}
+      alternatePath={alternatePath}
+    />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <a href={locale === "en" ? "/" : "/ru"} class="brand">
+          <span class="brand-mark"></span>
+          <span>{copy.siteTitle}</span>
+        </a>
+        <nav class="site-nav">
+          {copy.nav.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+        <LocaleSwitch locale={locale} slugPath={switchPath} />
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <p>{copy.footerBlurb}</p>
+      </footer>
+    </div>
+  </body>
+</html>

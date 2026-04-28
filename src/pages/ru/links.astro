@@ -1,0 +1,15 @@
+---
+import ContentLayout from "../../layouts/ContentLayout.astro";
+import Content, { frontmatter } from "../../content/pages/ru-links.mdx";
+---
+
+<ContentLayout
+  title={frontmatter.title}
+  description={frontmatter.summary}
+  locale="ru"
+  currentPath="/ru/links"
+  switchPath="/links"
+  alternatePath="/links"
+>
+  <Content />
+</ContentLayout>

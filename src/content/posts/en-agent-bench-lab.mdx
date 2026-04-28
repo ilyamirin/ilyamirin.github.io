@@ -1,0 +1,23 @@
+---
+title: Benchmarking coding agents for operational closure
+slug: en-agent-bench-lab
+pathSlug: agent-bench-lab
+locale: en
+translationKey: post-agent-bench-lab
+date: 2026-04-12
+summary: Why the useful benchmark signal is operational closure, not raw code generation.
+tags: [CodingAgents, AIEvaluation, Benchmarking]
+coverImage:
+sourceType: linkedin
+featured: true
+---
+
+I built `agent-bench-lab` to compare coding agents on the same real Python task, in the same environment, with the same acceptance flow.
+
+The core question was not “which agent writes the best code.”
+
+The real question was whether an agent could close the full loop: understand the task, edit the right layers, respect project constraints, and survive verification.
+
+Most systems can produce plausible code. Far fewer can finish engineering work all the way through migrations, tests, visible-surface wiring, and browser-level acceptance.
+
+That is why the benchmark signal I care about is operational closure, not raw code generation.

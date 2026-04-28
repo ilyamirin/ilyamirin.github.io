@@ -1,0 +1,102 @@
+---
+import { getCollection } from "astro:content";
+import HeroArt from "../../components/HeroArt.astro";
+import PostCard from "../../components/PostCard.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { frontmatter as nowFrontmatter } from "../../content/pages/ru-now.mdx";
+import { frontmatter as resumeFrontmatter } from "../../content/pages/ru-resume.mdx";
+import { featuredProjectOrder, featuredWritingOrder, siteCopy } from "../../data/site";
+import MainLayout from "../../layouts/MainLayout.astro";
+
+const locale = "ru";
+const copy = siteCopy[locale];
+const projects = (await getCollection("projects", ({ data }) => data.locale === locale))
+  .sort((a, b) => featuredProjectOrder.indexOf(a.data.pathSlug) - featuredProjectOrder.indexOf(b.data.pathSlug))
+  .slice(0, 6);
+const posts = (await getCollection("posts", ({ data }) => data.locale === locale))
+  .sort((a, b) => featuredWritingOrder.indexOf(a.data.pathSlug) - featuredWritingOrder.indexOf(b.data.pathSlug))
+  .slice(0, 4);
+---
+
+<MainLayout
+  title="Илья Мирин | AI systems, generative products и unusual interfaces"
+  description={copy.siteDescription}
+  locale={locale}
+  currentPath="/ru"
+  switchPath="/"
+  alternatePath="/"
+>
+  <section class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">{copy.hero.overline}</p>
+      <h1>{copy.hero.title}</h1>
+      <p class="lede">{copy.hero.summary}</p>
+      <div class="cta-row">
+        <a class="button primary" href={copy.hero.primaryCta.href}>{copy.hero.primaryCta.label}</a>
+        <a class="button" href={copy.hero.secondaryCta.href}>{copy.hero.secondaryCta.label}</a>
+      </div>
+      <div class="signal-strip">
+        {copy.hero.signalStrip.map((item) => <span>{item}</span>)}
+      </div>
+    </div>
+    <HeroArt />
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Главные доказательства</p>
+        <h2>{copy.sectionLabels.selectedWorlds}</h2>
+      </div>
+      <p>Избранные системы, которые показывают не только что я сделал, но и как я думаю.</p>
+    </div>
+    <div class="card-grid">
+      {projects.map((project) => <ProjectCard project={project} locale={locale} />)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Мост между визуалом и карьерой</p>
+        <h2>{copy.sectionLabels.whatIBuild}</h2>
+      </div>
+    </div>
+    <div class="grid-three">
+      {copy.whatIBuild.map((item) => (
+        <article class="panel-block">
+          <h3>{item.title}</h3>
+          <p>{item.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Архив и мышление</p>
+        <h2>{copy.sectionLabels.writing}</h2>
+      </div>
+      <a class="button" href="/ru/writing">Все тексты</a>
+    </div>
+    <div class="card-grid">
+      {posts.map((post) => <PostCard post={post} locale={locale} />)}
+    </div>
+  </section>
+
+  <section class="section grid-two">
+    <article class="panel-block">
+      <p class="eyebrow">{copy.sectionLabels.resume}</p>
+      <h2>{resumeFrontmatter.title}</h2>
+      <p>{resumeFrontmatter.summary}</p>
+      <a class="button primary" href="/ru/resume">Полное резюме</a>
+    </article>
+    <article class="panel-block">
+      <p class="eyebrow">{copy.sectionLabels.now}</p>
+      <h2>{nowFrontmatter.title}</h2>
+      <p>{nowFrontmatter.summary}</p>
+      <a class="button" href="/ru/now">Текущий фокус</a>
+    </article>
+  </section>
+</MainLayout>

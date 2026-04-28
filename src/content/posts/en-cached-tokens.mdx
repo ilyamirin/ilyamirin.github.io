@@ -1,0 +1,25 @@
+---
+title: Cached tokens as an engineering surface
+slug: en-cached-tokens
+pathSlug: cached-tokens
+locale: en
+translationKey: post-cached-tokens
+date: 2026-04-02
+summary: Cached tokens matter not only for cost but for how you structure prompts and reusable computation.
+tags: [LLM, AIEngineering, PromptEngineering, RAG]
+coverImage: /media/posts/cached-tokens-cover-square.png
+sourceType: linkedin
+featured: true
+---
+
+Cached tokens are the point where working with LLMs starts looking like engineering.
+
+The useful lesson is not only about billing. It is about architecture. If the static prefix of your prompt is stable and deterministic, the system can reuse computation instead of paying to rebuild it every time.
+
+That forces you to think about prompt structure as a real surface:
+
+- stable reusable context
+- deterministic serialization
+- clean separation between static and dynamic input
+
+Good LLM integrations are partly model quality and partly computation reuse discipline.

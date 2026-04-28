@@ -1,0 +1,31 @@
+---
+import ContentLayout from "../../../layouts/ContentLayout.astro";
+import ArchivePostCard from "../../../components/ArchivePostCard.astro";
+import { importedArchive } from "../../../lib/linkedinArchive";
+
+const locale = "en";
+---
+
+<ContentLayout
+  title="Imported LinkedIn Archive"
+  description="Full imported LinkedIn writing archive from August 2025 onward."
+  locale={locale}
+  currentPath="/writing/archive"
+  alternatePath="/ru/writing/archive"
+>
+  <section class="panel-block archive-intro">
+    <p class="eyebrow">Imported Archive</p>
+    <h2>Full LinkedIn writing archive</h2>
+    <p class="lede">
+      This section carries the broader LinkedIn archive separately from the curated essays above. Where a second-language rewrite is not ready yet, the page still preserves the original post text.
+    </p>
+    <div class="tag-row">
+      <span>{importedArchive.length} imported posts</span>
+      <span>From August 2025</span>
+    </div>
+  </section>
+
+  <div class="card-grid">
+    {importedArchive.map((post) => <ArchivePostCard post={post} locale={locale} />)}
+  </div>
+</ContentLayout>

@@ -1,0 +1,33 @@
+---
+import { getLocalizedCollection } from "../../../lib/i18n";
+import ContentLayout from "../../../layouts/ContentLayout.astro";
+import PostCard from "../../../components/PostCard.astro";
+import { importedArchive } from "../../../lib/linkedinArchive";
+
+const locale = "ru";
+const posts = await getLocalizedCollection("posts", locale);
+---
+
+<ContentLayout
+  title="Тексты"
+  description="LinkedIn-посты, заметки и field reports про AI systems, generative products и technical judgment."
+  locale={locale}
+  currentPath="/ru/writing"
+  switchPath="/writing"
+  alternatePath="/writing"
+>
+  <section class="panel-block archive-intro">
+    <p class="eyebrow">Imported Archive</p>
+    <h2>Широкий LinkedIn-архив</h2>
+    <p class="lede">
+      Ниже остаются curated-тексты. Полный импортированный архив с августа 2025 года вынесен в отдельный слой, чтобы не терялся весь публичный сигнал.
+    </p>
+    <div class="cta-row">
+      <a class="button" href="/ru/writing/archive">Открыть импортированный архив</a>
+      <span class="archive-count">{importedArchive.length} постов</span>
+    </div>
+  </section>
+  <div class="card-grid">
+    {posts.map((post) => <PostCard post={post} locale={locale} />)}
+  </div>
+</ContentLayout>

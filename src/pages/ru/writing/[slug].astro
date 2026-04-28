@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import ContentLayout from "../../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = (await getCollection("posts")).filter((entry) => entry.data.locale === "ru");
+  return entries.map((entry) => ({
+    params: { slug: entry.data.pathSlug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<ContentLayout
+  title={entry.data.title}
+  description={entry.data.summary}
+  locale="ru"
+  currentPath={`/ru/writing/${entry.data.pathSlug}`}
+  switchPath={`/writing/${entry.data.pathSlug}`}
+  alternatePath={`/writing/${entry.data.pathSlug}`}
+  eyebrow={entry.data.sourceType === "linkedin" ? "LinkedIn архив" : "Статья"}
+>
+  <div class="detail-meta">
+    <span>{entry.data.date.toLocaleDateString("ru-RU", { dateStyle: "medium" })}</span>
+    {entry.data.tags.map((tag: string) => <span>{tag}</span>)}
+  </div>
+  {entry.data.coverImage && <p><img src={entry.data.coverImage} alt={entry.data.title} /></p>}
+  <Content />
+</ContentLayout>

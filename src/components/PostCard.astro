@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { withLocalePath, type Locale } from "../lib/i18n";
+
+type Props = {
+  post: CollectionEntry<"posts">;
+  locale: Locale;
+};
+
+const { post, locale } = Astro.props;
+const href = withLocalePath(locale, `/writing/${post.data.pathSlug}`);
+---
+
+<article class="post-card">
+  <div class="eyebrow">{post.data.date.toLocaleDateString(locale === "en" ? "en-US" : "ru-RU", { dateStyle: "medium" })}</div>
+  <h3><a href={href}>{post.data.title}</a></h3>
+  <p>{post.data.summary}</p>
+  <div class="tag-row">
+    {post.data.tags.slice(0, 4).map((tag) => <span>{tag}</span>)}
+  </div>
+</article>

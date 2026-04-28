@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { withLocalePath, type Locale } from "../lib/i18n";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+  locale: Locale;
+};
+
+const { project, locale } = Astro.props;
+const href = withLocalePath(locale, `/projects/${project.data.pathSlug}`);
+---
+
+<article class="project-card">
+  <div class="eyebrow">{project.data.role}</div>
+  <h3><a href={href}>{project.data.title}</a></h3>
+  <p>{project.data.summary}</p>
+  <dl>
+    <div>
+      <dt>Proof</dt>
+      <dd>{project.data.proof}</dd>
+    </div>
+    <div>
+      <dt>Stack</dt>
+      <dd>{project.data.stack.join(" / ")}</dd>
+    </div>
+  </dl>
+</article>

@@ -1,0 +1,32 @@
+---
+import ContentLayout from "../../../../layouts/ContentLayout.astro";
+import ArchivePostCard from "../../../../components/ArchivePostCard.astro";
+import { importedArchive } from "../../../../lib/linkedinArchive";
+
+const locale = "ru";
+---
+
+<ContentLayout
+  title="Импортированный LinkedIn-архив"
+  description="Полный импортированный архив LinkedIn-постов с августа 2025 года."
+  locale={locale}
+  currentPath="/ru/writing/archive"
+  switchPath="/writing/archive"
+  alternatePath="/writing/archive"
+>
+  <section class="panel-block archive-intro">
+    <p class="eyebrow">Imported Archive</p>
+    <h2>Полный архив LinkedIn-постов</h2>
+    <p class="lede">
+      Здесь лежит широкий LinkedIn-слой отдельно от curated-текстов выше. Если полноценная версия на втором языке пока не готова, страница всё равно сохраняет оригинальный текст поста.
+    </p>
+    <div class="tag-row">
+      <span>{importedArchive.length} постов</span>
+      <span>С августа 2025</span>
+    </div>
+  </section>
+
+  <div class="card-grid">
+    {importedArchive.map((post) => <ArchivePostCard post={post} locale={locale} />)}
+  </div>
+</ContentLayout>

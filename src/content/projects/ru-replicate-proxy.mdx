@@ -1,0 +1,27 @@
+---
+title: replicate_proxy
+slug: ru-replicate-proxy
+pathSlug: replicate-proxy
+locale: ru
+translationKey: project-replicate-proxy
+date: 2026-04-28
+summary: OpenAI-compatible proxy и orchestration layer для маршрутизации model access между внешними провайдерами.
+tags: [openai-compatible, orchestration, llm-backends]
+coverImage:
+sourceType: project
+proof: Доказывает API design, provider orchestration и production-minded backend thinking.
+role: Model access orchestration
+stack: [Python, Streaming APIs, Tool calling]
+featured: true
+repoUrl: https://github.com/ilyamirin/replicate_proxy
+---
+
+Этот проект рассматривает model access как системную задачу.
+
+Вместо жёсткой привязки приложения к одному провайдеру `replicate_proxy` создаёт OpenAI-compatible access layer, который умеет маршрутизировать, нормализовать и сохранять поведение приложения.
+
+Что это доказывает обо мне:
+
+- я умею строить полезные compatibility layers
+- я понимаю model access как инфраструктуру, а не как integration glue
+- мне важны стабильные интерфейсы при меняющихся провайдерах

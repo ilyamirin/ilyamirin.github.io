@@ -1,0 +1,32 @@
+---
+import type { Locale } from "../lib/i18n";
+import type { ImportedArchivePost } from "../lib/linkedinArchive";
+import { withLocalePath } from "../lib/i18n";
+
+interface Props {
+  post: ImportedArchivePost;
+  locale: Locale;
+}
+
+const { post, locale } = Astro.props;
+const href = withLocalePath(locale, `/writing/archive/${post.slug}`);
+const date = new Date(post.date);
+const originalBadge =
+  locale === "ru"
+    ? post.originalLocale === "ru"
+      ? "Оригинал RU"
+      : "Оригинал EN"
+    : post.originalLocale === "ru"
+      ? "Original RU"
+      : "Original EN";
+---
+
+<article class="post-card archive-card">
+  <p class="eyebrow">{date.toLocaleDateString(locale === "ru" ? "ru-RU" : "en-US", { dateStyle: "medium" })}</p>
+  <h3><a href={href}>{post.title}</a></h3>
+  <p>{post.summary}</p>
+  <div class="tag-row">
+    <span>{originalBadge}</span>
+    {post.hasImage && <span>{locale === "ru" ? "С изображением" : "With image"}</span>}
+  </div>
+</article>

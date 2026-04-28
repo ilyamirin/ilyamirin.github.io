@@ -1,0 +1,38 @@
+<div class="hero-art" aria-hidden="true">
+  <div class="sky"></div>
+  <div class="constellation constellation-a"></div>
+  <div class="constellation constellation-b"></div>
+  <div class="orbital orbital-a"></div>
+  <div class="orbital orbital-b"></div>
+  <div class="mountains mountains-back"></div>
+  <div class="mountains mountains-front"></div>
+  <div class="forest"></div>
+  <div class="dome">
+    <div class="dome-grid"></div>
+    <div class="dome-forest"></div>
+  </div>
+  <div class="tower tower-main"></div>
+  <div class="tower tower-side"></div>
+  <div class="terrain terrain-a"></div>
+  <div class="terrain terrain-b"></div>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const hero = document.querySelector(".hero-art");
+
+  if (hero && window.matchMedia("(pointer:fine)").matches) {
+    hero.addEventListener("pointermove", (event) => {
+      const pointerEvent = event as PointerEvent;
+      const rect = hero.getBoundingClientRect();
+      const x = (pointerEvent.clientX - rect.left) / rect.width - 0.5;
+      const y = (pointerEvent.clientY - rect.top) / rect.height - 0.5;
+      root.style.setProperty("--hero-shift-x", `${x * 20}px`);
+      root.style.setProperty("--hero-shift-y", `${y * 12}px`);
+    });
+    hero.addEventListener("pointerleave", () => {
+      root.style.setProperty("--hero-shift-x", "0px");
+      root.style.setProperty("--hero-shift-y", "0px");
+    });
+  }
+</script>

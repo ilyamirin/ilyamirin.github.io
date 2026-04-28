@@ -1,0 +1,31 @@
+---
+type Props = {
+  title: string;
+  description: string;
+  locale: "en" | "ru";
+  canonicalPath: string;
+  alternatePath?: string;
+};
+
+const { title, description, locale, canonicalPath, alternatePath } = Astro.props;
+const canonical = new URL(canonicalPath, Astro.site);
+const alternate = alternatePath ? new URL(alternatePath, Astro.site) : null;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="theme-color" content="#0d1b2f" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical.toString()} />
+<meta property="og:locale" content={locale === "en" ? "en_US" : "ru_RU"} />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href={canonical.toString()} />
+<link rel="alternate" hreflang={locale} href={canonical.toString()} />
+{alternate && <link rel="alternate" hreflang={locale === "en" ? "ru" : "en"} href={alternate.toString()} />}
+<link rel="alternate" hreflang="x-default" href={new URL("/", Astro.site).toString()} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />

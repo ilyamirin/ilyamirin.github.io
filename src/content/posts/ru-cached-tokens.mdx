@@ -1,0 +1,25 @@
+---
+title: Cached tokens как инженерная поверхность
+slug: ru-cached-tokens
+pathSlug: cached-tokens
+locale: ru
+translationKey: post-cached-tokens
+date: 2026-04-02
+summary: Cached tokens важны не только для стоимости, но и для того, как ты структурируешь prompts и reusable computation.
+tags: [LLM, AIEngineering, PromptEngineering, RAG]
+coverImage: /media/posts/cached-tokens-cover-square.png
+sourceType: linkedin
+featured: true
+---
+
+Cached tokens — это точка, где работа с LLM перестаёт выглядеть как магия и начинает выглядеть как engineering.
+
+Полезный урок здесь не только про billing. Он про архитектуру. Если статический prefix твоего prompt остаётся стабильным и детерминированным, система может переиспользовать вычисление вместо того, чтобы каждый раз пересобирать его заново.
+
+Это заставляет смотреть на структуру prompt как на реальную инженерную поверхность:
+
+- стабильный reusable context
+- deterministic serialization
+- чистое разделение между static и dynamic input
+
+Сильные LLM integrations определяются не только качеством модели, но и дисциплиной reuse computation.

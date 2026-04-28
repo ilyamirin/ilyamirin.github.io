@@ -1,0 +1,14 @@
+---
+import ContentLayout from "../layouts/ContentLayout.astro";
+import Content, { frontmatter } from "../content/pages/en-resume.mdx";
+---
+
+<ContentLayout
+  title={frontmatter.title}
+  description={frontmatter.summary}
+  locale="en"
+  currentPath="/resume"
+  alternatePath="/ru/resume"
+>
+  <Content />
+</ContentLayout>

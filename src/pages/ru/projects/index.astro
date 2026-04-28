@@ -1,0 +1,24 @@
+---
+import { getLocalizedCollection } from "../../../lib/i18n";
+import ContentLayout from "../../../layouts/ContentLayout.astro";
+import ProjectCard from "../../../components/ProjectCard.astro";
+import { featuredProjectOrder } from "../../../data/site";
+
+const locale = "ru";
+const projects = (await getLocalizedCollection("projects", locale)).sort(
+  (a, b) => featuredProjectOrder.indexOf(a.data.pathSlug) - featuredProjectOrder.indexOf(b.data.pathSlug)
+);
+---
+
+<ContentLayout
+  title="Проекты"
+  description="Избранные системы в областях coding agents, AI infrastructure, orchestration и operator-facing tools."
+  locale={locale}
+  currentPath="/ru/projects"
+  switchPath="/projects"
+  alternatePath="/projects"
+>
+  <div class="card-grid">
+    {projects.map((project) => <ProjectCard project={project} locale={locale} />)}
+  </div>
+</ContentLayout>

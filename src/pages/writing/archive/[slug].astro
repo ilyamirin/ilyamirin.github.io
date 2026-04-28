@@ -1,0 +1,38 @@
+---
+import ContentLayout from "../../../layouts/ContentLayout.astro";
+import { importedArchive } from "../../../lib/linkedinArchive";
+
+export function getStaticPaths() {
+  return importedArchive.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const paragraphs = post.body.split(/\n\s*\n/).map((chunk: string) => chunk.trim()).filter(Boolean);
+const originalNote =
+  post.originalLocale === "en"
+    ? "Original post language: English. A dedicated Russian rewrite is still pending, so this archive entry preserves the original text."
+    : "Original post language: Russian. A dedicated English rewrite is still pending, so this archive entry preserves the original text.";
+---
+
+<ContentLayout
+  title={post.title}
+  description={post.summary}
+  locale="en"
+  currentPath={`/writing/archive/${post.slug}`}
+  alternatePath={`/ru/writing/archive/${post.slug}`}
+  eyebrow="Imported LinkedIn archive"
+>
+  <div class="detail-meta">
+    <span>{new Date(post.date).toLocaleDateString("en-US", { dateStyle: "medium" })}</span>
+    <span>{post.originalLocale === "en" ? "Original EN" : "Original RU"}</span>
+    {post.sourceUrl && <span><a href={post.sourceUrl} target="_blank" rel="noreferrer">Open on LinkedIn</a></span>}
+  </div>
+  {post.originalLocale !== "en" && <div class="archive-note">{originalNote}</div>}
+  {post.coverImage && <p><img src={post.coverImage} alt={post.title} /></p>}
+  <div class="archive-prose">
+    {paragraphs.map((paragraph: string) => <p>{paragraph}</p>)}
+  </div>
+</ContentLayout>

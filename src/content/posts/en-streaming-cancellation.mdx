@@ -1,0 +1,21 @@
+---
+title: Streaming cancellation is an architectural boundary
+slug: en-streaming-cancellation
+pathSlug: streaming-cancellation
+locale: en
+translationKey: post-streaming-cancellation
+date: 2026-03-29
+summary: The difference between stopping the UI and stopping inference tells you how mature an LLM stack really is.
+tags: [LLM, AIEngineering, Inference, SystemDesign]
+coverImage: /media/posts/streaming-cancellation-cover-square.png
+sourceType: linkedin
+featured: true
+---
+
+Streaming cancellation is easy to underestimate until the bills become real.
+
+If the client stops rendering tokens but the server keeps decoding, the product only *looks* cancelled. The infrastructure knows better.
+
+That is why stop is not just a UX action. It is an architectural boundary that should travel through transport, orchestration, and provider inference.
+
+Good LLM systems are defined partly by how quickly and cleanly they can stop.

@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = (await getCollection("projects")).filter((entry) => entry.data.locale === "en");
+  return entries.map((entry) => ({
+    params: { slug: entry.data.pathSlug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<ContentLayout
+  title={entry.data.title}
+  description={entry.data.summary}
+  locale="en"
+  currentPath={`/projects/${entry.data.pathSlug}`}
+  alternatePath={`/ru/projects/${entry.data.pathSlug}`}
+  eyebrow={entry.data.role}
+>
+  <div class="detail-meta">
+    <span>{entry.data.proof}</span>
+    <span>{entry.data.stack.join(" / ")}</span>
+  </div>
+  {entry.data.repoUrl && <p><a class="button primary" href={entry.data.repoUrl}>Open repository</a></p>}
+  <Content />
+</ContentLayout>
