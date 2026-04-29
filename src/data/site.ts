@@ -127,19 +127,19 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       { href: "/about", label: "About" }
     ],
     hero: {
-      overline: "AI systems / operator tools / generative media",
-      title: "I build AI systems, generative products, and operator tools that make complex models usable.",
+      overline: "AI systems / LLM infrastructure / generative media",
+      title: "I build AI systems that people can actually use.",
       summary:
-        "From coding agents and OpenAI-compatible backends to evaluation harnesses, runtime control planes, and media pipelines, I like systems with clear instrumentation, humane interfaces, and enough character to avoid looking factory-issued.",
-      primaryCta: { href: "/projects", label: "Explore Projects" },
+        "Coding agents, LLM infrastructure, evaluation, and generative products — designed for clarity, control, and real work.",
+      primaryCta: { href: "/projects", label: "View Projects" },
       secondaryCta: { href: "/resume", label: "Read Resume" },
-      signalStrip: ["Coding agents", "LLM infrastructure", "Generative workflows", "Operator surfaces"]
+      signalStrip: ["Coding agents", "LLM systems", "Generative media", "Human-in-the-loop tools"]
     },
     home: {
       selectedWorlds: {
-        eyebrow: "Selected systems",
-        title: "Selected Worlds",
-        body: "A few systems that show how I think when the work needs both infrastructure discipline and product taste."
+        eyebrow: "Selected work",
+        title: "Selected Projects",
+        body: "A few projects that show how I think when systems need both technical depth and product judgment."
       },
       whatIBuild: {
         eyebrow: "What holds together",
@@ -172,7 +172,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       }
     ],
     sectionLabels: {
-      selectedWorlds: "Selected Worlds",
+      selectedWorlds: "Selected Projects",
       whatIBuild: "What I Build",
       writing: "Field Notes",
       resume: "Resume Snapshot",
@@ -252,19 +252,19 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       { href: "/ru/about", label: "Обо мне" }
     ],
     hero: {
-      overline: "AI-системы / операторские инструменты / генеративные медиа",
-      title: "Я строю AI-системы, генеративные продукты и операторские инструменты, которые делают сложные модели пригодными для работы.",
+      overline: "AI-системы / LLM-инфраструктура / генеративные медиа",
+      title: "Я строю AI-системы, которыми действительно можно пользоваться.",
       summary:
-        "От кодовых агентов и OpenAI-compatible бэкендов до систем оценки, контуров управления рантаймами и медийных пайплайнов — мне нравятся системы с ясной телеметрией, человеческим интерфейсом и характером, который не выглядит конвейерным.",
+        "Кодовые агенты, LLM-инфраструктура, оценка качества и генеративные продукты — с упором на ясность, управляемость и практическую пользу.",
       primaryCta: { href: "/ru/projects", label: "Смотреть проекты" },
       secondaryCta: { href: "/ru/resume", label: "Читать резюме" },
-      signalStrip: ["Кодовые агенты", "LLM-инфраструктура", "Генеративные пайплайны", "Операторские интерфейсы"]
+      signalStrip: ["Кодовые агенты", "LLM-системы", "Генеративные медиа", "Инструменты для людей в контуре"]
     },
     home: {
       selectedWorlds: {
-        eyebrow: "Ключевые системы",
-        title: "Избранные миры",
-        body: "Несколько систем, по которым хорошо видно, как я думаю, когда работе нужны и инженерная дисциплина, и вкус к продукту."
+        eyebrow: "Избранные проекты",
+        title: "Избранные проекты",
+        body: "Несколько проектов, по которым видно, как я думаю, когда системе нужны и инженерная глубина, и продуктовый вкус."
       },
       whatIBuild: {
         eyebrow: "Что всё это связывает",
@@ -297,7 +297,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
       }
     ],
     sectionLabels: {
-      selectedWorlds: "Избранные миры",
+      selectedWorlds: "Избранные проекты",
       whatIBuild: "Что я строю",
       writing: "Полевые заметки",
       resume: "Коротко о карьере",
