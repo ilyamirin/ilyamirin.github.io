@@ -1,4 +1,5 @@
 import type { Locale } from "../lib/i18n";
+import { fullArchiveTranslations } from "./linkedinArchiveFullTranslations";
 
 export type ArchiveTopic =
   | "ai-systems"
@@ -19,7 +20,7 @@ export type ArchiveOverride = {
   locales?: Partial<Record<Locale, ArchiveLocaleOverride>>;
 };
 
-export const archiveOverrides: Record<string, ArchiveOverride> = {
+const curatedArchiveOverrides: Record<string, ArchiveOverride> = {
   "2026-04-28-streaming-cancellation-is-one-of-those-llm-features-people-216384": {
     topic: "ai-systems",
     featured: true,
@@ -565,4 +566,9 @@ Base models still matter. They are the foundation from which assistants, copilot
       }
     }
   }
+};
+
+export const archiveOverrides: Record<string, ArchiveOverride> = {
+  ...fullArchiveTranslations,
+  ...curatedArchiveOverrides
 };
