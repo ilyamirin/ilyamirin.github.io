@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brand Explorations | Ilya Mirin</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #07101c;
+        --panel: #0d1728;
+        --line: rgba(244, 230, 208, 0.14);
+        --text: #f4e6d0;
+        --muted: #c8bba8;
+        --copper: #edb47a;
+        --moss: #79a790;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(121, 167, 144, 0.12), transparent 32%),
+          radial-gradient(circle at 80% 20%, rgba(237, 180, 122, 0.12), transparent 28%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 48px 20px 72px;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1;
+      }
+
+      p.lead {
+        max-width: 760px;
+        margin: 0 0 32px;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.6;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+        backdrop-filter: blur(10px);
+      }
+
+      .card img {
+        display: block;
+        width: 100%;
+        max-width: 180px;
+        margin: 6px auto 18px;
+      }
+
+      .eyebrow {
+        color: var(--copper);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+      }
+
+      h2 {
+        margin: 6px 0 10px;
+        font-size: 1.15rem;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .meta {
+        margin-top: 14px;
+        color: var(--moss);
+        font-size: 0.88rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Event Horizon Logo Concepts</h1>
+      <p class="lead">
+        Three contrast-first variants where the black hole still reads at favicon size.
+        The main trick is simple: the core cannot share too much darkness with the tile background,
+        so each option creates a small separation halo or lensing field around it.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <div class="eyebrow">Concept 1</div>
+          <h2>Core Halo</h2>
+          <img src="./core-halo.svg" alt="Core Halo logo concept" />
+          <ul>
+            <li>Dark core, but with a cooler separation halo behind it</li>
+            <li>Most balanced candidate for logo and favicon</li>
+            <li>Reads clearly without looking busy</li>
+          </ul>
+          <div class="meta">Mood: premium, legible, controlled</div>
+        </article>
+
+        <article class="card">
+          <div class="eyebrow">Concept 2</div>
+          <h2>Lensed Core</h2>
+          <img src="./lensed-core.svg" alt="Lensed Core logo concept" />
+          <ul>
+            <li>Most physically “black-hole-like” of the set</li>
+            <li>The lens shape gives the core its own field</li>
+            <li>More celestial, slightly less minimal</li>
+          </ul>
+          <div class="meta">Mood: optical, gravitational, elegant</div>
+        </article>
+
+        <article class="card">
+          <div class="eyebrow">Concept 3</div>
+          <h2>Bright Horizon</h2>
+          <img src="./bright-horizon.svg" alt="Bright Horizon logo concept" />
+          <ul>
+            <li>Strongest contrast and brightest event horizon</li>
+            <li>Best if you want the favicon to pop harder</li>
+            <li>Least subtle, most visible</li>
+          </ul>
+          <div class="meta">Mood: bold, visible, iconic</div>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>

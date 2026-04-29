@@ -21,6 +21,17 @@ type Props = {
 
 const { title, description, locale, currentPath, switchPath = currentPath, alternatePath } = Astro.props;
 const copy = siteCopy[locale];
+
+function normalizePath(path: string) {
+  return path.replace(/\/+$/, "") || "/";
+}
+
+function isActivePath(target: string, current: string) {
+  const normalizedTarget = normalizePath(target);
+  const normalizedCurrent = normalizePath(current);
+
+  return normalizedCurrent === normalizedTarget || normalizedCurrent.startsWith(`${normalizedTarget}/`);
+}
 ---
 
 <!doctype html>
@@ -41,12 +52,18 @@ const copy = siteCopy[locale];
           <img src={brandConfig.logoMarkPath} alt="" width="34" height="34" class="brand-mark" />
           <span class="brand-name">{copy.siteTitle}</span>
         </a>
+        <div class="header-center">
         <nav class="site-nav">
           {copy.nav.map((item) => (
-            <a href={item.href}>{item.label}</a>
+            <a href={item.href} class:list={[{ active: isActivePath(item.href, currentPath) }]}>
+              {item.label}
+            </a>
           ))}
         </nav>
+        </div>
+        <div class="header-actions">
         <LocaleSwitch locale={locale} slugPath={switchPath} />
+        </div>
       </header>
       <main>
         <slot />
