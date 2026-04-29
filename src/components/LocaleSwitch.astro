@@ -13,8 +13,9 @@ const { locale, slugPath } = Astro.props;
   {(["en", "ru"] as const).map((entryLocale) => {
     const href = entryLocale === defaultLocale ? slugPath : withLocalePath(entryLocale, slugPath);
     return (
-      <a href={href} class:list={[{ active: locale === entryLocale }]}>
-        {localeLabels[entryLocale]}
+      <a href={href} class:list={[{ active: locale === entryLocale }]} aria-label={localeLabels[entryLocale]}>
+        <span class="locale-label-full">{localeLabels[entryLocale]}</span>
+        <span class="locale-label-short" aria-hidden="true">{entryLocale.toUpperCase()}</span>
       </a>
     );
   })}

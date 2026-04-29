@@ -151,9 +151,16 @@ main {
 }
 
 .locale-switch a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.42rem 0.8rem;
   border: 1px solid transparent;
   border-radius: 999px;
+}
+
+.locale-label-short {
+  display: none;
 }
 
 .site-nav a:hover,
@@ -661,8 +668,20 @@ h3 {
     border-radius: 1.15rem;
   }
 
+  .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .header-actions {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
+
   .header-center {
     grid-column: 1 / -1;
+    grid-row: 2;
     justify-content: flex-start;
   }
 
@@ -682,6 +701,30 @@ h3 {
 
   .site-nav a {
     padding: 0.46rem 0.72rem;
+  }
+
+  .locale-switch {
+    justify-self: end;
+    gap: 0.18rem;
+    padding: 0.16rem;
+    border-color: rgba(218, 230, 245, 0.1);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .locale-switch a {
+    min-width: 3rem;
+    justify-content: center;
+    padding: 0.42rem 0.62rem;
+    font-size: 0.84rem;
+    letter-spacing: 0.04em;
+  }
+
+  .locale-label-full {
+    display: none;
+  }
+
+  .locale-label-short {
+    display: inline;
   }
 
   .brand-name {
